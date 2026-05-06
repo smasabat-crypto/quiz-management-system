@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz Platform</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Role Selection -->
+  <div id="screen-role" class="screen active">
+    <div class="card">
+      <h1 class="logo">QuizHub</h1>
+      <p class="subtitle">Who are you?</p>
+      <div class="role-buttons">
+        <button class="role-btn student-btn" onclick="selectRole('student')">
+          <span class="role-icon">🎓</span>
+          <span>Student</span>
+        </button>
+        <button class="role-btn teacher-btn" onclick="selectRole('teacher')">
+          <span class="role-icon">🧑‍🏫</span>
+          <span>Teacher</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Student Login -->
+  <div id="screen-student-login" class="screen">
+    <div class="card">
+      <button class="back-btn" onclick="goBack('screen-role')">← Back</button>
+      <h2>Student Login</h2>
+      <p class="subtitle">Enter your name to begin</p>
+      <input type="text" id="student-name" placeholder="Your full name" maxlength="40" />
+      <div id="student-login-error" class="error-msg"></div>
+      <button class="btn primary" onclick="studentLogin()">Start Quiz</button>
+    </div>
+  </div>
+
+  <!-- Teacher Login -->
+  <div id="screen-teacher-login" class="screen">
+    <div class="card">
+      <button class="back-btn" onclick="goBack('screen-role')">← Back</button>
+      <h2>Teacher Login</h2>
+      <p class="subtitle">Enter the admin password</p>
+      <input type="password" id="teacher-password" placeholder="Password" />
+      <div id="teacher-login-error" class="error-msg"></div>
+      <button class="btn primary" onclick="teacherLogin()">Login</button>
+    </div>
+  </div>
+
+  <!-- Quiz Screen (Student) -->
+  <div id="screen-quiz" class="screen">
+    <div class="quiz-header">
+      <span id="quiz-title-display" class="quiz-title-text"></span>
+      <span id="quiz-progress" class="progress-text"></span>
+    </div>
+    <div class="quiz-body">
+      <div id="question-card" class="card question-card">
+        <p id="question-text" class="question-text"></p>
+        <div id="options-list" class="options-list"></div>
+        <div id="quiz-feedback" class="feedback-msg"></div>
+        <button class="btn primary" id="next-btn" onclick="nextQuestion()" style="display:none;">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Result Screen (Student) -->
+  <div id="screen-result" class="screen">
+    <div class="card result-card">
+      <div class="result-icon" id="result-icon"></div>
+      <h2>Quiz Complete!</h2>
+      <p id="result-student-name" class="result-name"></p>
+      <div class="score-circle">
+        <span id="result-score"></span>
+      </div>
+      <p id="result-message" class="result-msg"></p>
+      <button class="btn primary" onclick="restartApp()">Back to Home</button>
+    </div>
+  </div>
+
+  <!-- Teacher Dashboard -->
+  <div id="screen-teacher" class="screen">
+    <div class="dashboard">
+      <div class="dash-header">
+        <h2>Teacher Dashboard</h2>
+        <button class="btn outline small" onclick="restartApp()">Logout</button>
+      </div>
+
+      <div class="dash-tabs">
+        <button class="tab-btn active" id="tab-create" onclick="switchTab('create')">Create Quiz</button>
+        <button class="tab-btn" id="tab-results" onclick="switchTab('results')">Student Results</button>
+      </div>
+
+      <!-- Create Quiz Tab -->
+      <div id="tab-content-create" class="tab-content active">
+        <div class="section-card">
+          <h3>Quiz Details</h3>
+          <input type="text" id="quiz-title-input" placeholder="Quiz title (e.g. Science Chapter 3)" />
+        </div>
+
+        <div id="questions-container"></div>
+
+        <button class="btn outline" onclick="addQuestion()">+ Add Question</button>
+
+        <div style="margin-top:24px;">
+          <div id="save-msg" class="success-msg"></div>
+          <button class="btn primary" onclick="saveQuiz()">Save &amp; Publish Quiz</button>
+        </div>
+      </div>
+
+      <!-- Results Tab -->
+      <div id="tab-content-results" class="tab-content">
+        <div id="results-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
